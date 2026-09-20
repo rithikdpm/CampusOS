@@ -33,11 +33,4 @@ Before running this project, ensure you have installed:
 * [Java Development Kit (JDK 17+)](https://adoptium.net/) *(optional for local development outside Docker)*
 * [Node.js (18+) & npm](https://nodejs.org/) *(optional for local frontend development)*
 
----
 
-## Quick Start (Docker Compose)
-
-### 1. Clone the Repository
-```bash
-git clone [https://github.com/rithikdpm/CampusOS.git](https://github.com/rithikdpm/CampusOS.git)
-cd CampusOS
