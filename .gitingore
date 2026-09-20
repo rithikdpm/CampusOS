@@ -1,0 +1,21 @@
+# Environment and secrets
+.env
+*.env.local
+
+# Build artifacts
+target/
+node_modules/
+dist/
+build/
+
+# Database dumps and local data
+*.sql
+mysql_data/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+.settings/
+.classpath
+.project

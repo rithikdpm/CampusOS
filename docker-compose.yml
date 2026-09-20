@@ -1,0 +1,57 @@
+services:
+  mysqldb:
+    image: mysql:8.0
+    container_name: campusos-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - campus-net
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: campusos-backend
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS}
+      SERVER_PORT: ${SERVER_PORT}
+    networks:
+      - campus-net
+
+  frontend:
+    build:
+      context: ./campusos-frontend
+      dockerfile: Dockerfile
+    container_name: campusos-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - campus-net
+
+volumes:
+  mysql_data:
+
+networks:
+  campus-net:
+    driver: bridge
